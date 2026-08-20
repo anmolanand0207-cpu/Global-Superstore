@@ -1,0 +1,24 @@
+-- 1. Find the Top 5 Most Profitable Sub-Categories
+SELECT 
+    Sub_Category, 
+    SUM(Profit) AS Total_Profit
+FROM sales_data
+GROUP BY Sub_Category
+ORDER BY Total_Profit DESC
+LIMIT 5;
+
+-- 2. Identify Regions with Profit Leakage (Losing Money)
+SELECT 
+    Region, 
+    SUM(Profit) AS Net_Profit
+FROM sales_data
+GROUP BY Region
+HAVING SUM(Profit) < 0;
+
+-- 3. Calculate Average Order Value (AOV) by Customer Segment
+SELECT 
+    Segment, 
+    SUM(Sales) / COUNT(DISTINCT Order_ID) AS Average_Order_Value
+FROM sales_data
+GROUP BY Segment
+ORDER BY Average_Order_Value DESC;
